@@ -11,12 +11,12 @@
       <h1>Famous Destinations Search</h1>
       <form id="placesForm">
         <Label for="placesInput">Add a Destination</Label>
-        <input type="text" id="placesInput">
-        <br>
+        <input type="text" id="placesInput"><br>
+        <!-- <br> -->
 
     <!-- Add button to add new destinations -->
-      <input id="addPlace" type="submit" value="Add Your Own Destination">
-    </form>
+        <input id="addPlace" type="submit" value="Add Your Own Destination">
+       </form>
     <div id="buttonsView"></div>
 
     <!-- Add div to place destinations photos -->
@@ -28,11 +28,48 @@
     <script type="text/javascript">
 
     // Write code to put rendered buttons of places to visit
-    // Array of destinations
+    // Original Array of destinations
 
-    var places = ["Tahiti", "Borneo", "Switzerland", "Madagascar", "Fez"];
+      var places = ["Tahiti", "Borneo", "Switzerland", "Madagascar", "Fez", ];
 
-    
+      // function to set Giphy query parameters
+      function displayPlaces() {
+        
+        var places = $(this).attr("data-name");
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + place + "&api_key=dc6zaTOxFJmzC&limit=10";
+
+
+        // Create the AJAX call to pull the destination being called from the button clicked
+        
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        }).done(function(response) {
+          console.log(response); 
+
+          // Create Div to hold place
+          var placeDiv = $("<div class='place'>");
+
+          // Store the rating data
+          var rating = response.Rated;
+
+          // Place the rating to the gif
+          var pOne = $("<p>").text("Rating: " + rating);
+          placeDiv.append(pOne);
+
+          // Pull the URL for the gif
+          var imgURL = response.image
+
+          var image = $("<img>").attr("src", imgURL);
+          placeDiv.append(images;)
+
+          // // create for loop to call the 10 gif limit from above
+          // for (var i = 0; i < response.data.length; i++) {
+          //   var btn = $("<button>BUTTON</button");
+          //   $(".gifs").append(btn)
+  
+
+
   
     
    

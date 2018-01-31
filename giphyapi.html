@@ -8,7 +8,7 @@
   <!-- Changed layout to Bootstrap for better look-->
   <!-- CSS to add style   -->
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+<link rel="stylesheet" type="text/css" href="assets/giphy.css">
 
 </head>
 
@@ -26,12 +26,8 @@
     </div>
      <!-- Main Container  -->
     <div class="container">
-        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-            <!-- Area the gifs will display  -->
-            <div id="gifsView"></div>
-        </div>
-         <!-- Action Submission Form  -->
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <!-- Area that containts submit button form -->
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
             <form id="gif-form" role="form">
                 <h2><legend>Search for Amazing</legend></h2>
                 <div class="form-group">
@@ -41,17 +37,24 @@
                 <input id="addGif" type="submit" value="Submit" class="btn btn-primary">
             </form>    
         </div>
+
+        <!-- Area of container the gifs will display  -->
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div id="gifsView"></div>
+        </div>
+        
     </div>
 
     <!-- Footer to add inspirational quote -->
     <footer>
         <div id="footer" class="container">
-            <h4 id="quote">"IF YOU CAN'T BE IN AWE OF NATURE, THERE'S SOMETHING WRONG WITH YOU" - Alex Trebek</h4>
+            <h4 id="footer">"IF YOU CAN'T BE IN AWE OF NATURE, THERE'S SOMETHING WRONG WITH YOU" - Alex Trebek</h4>
         </div>
     </footer>
 
     <!-- script tags to call jquery and java -->
     <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
-    <script type="text/javascript" src="assets/javascript/javascript.js"></script>
+    <script type="text/javascript" src="assets/giphyapi.js"></script>
+
 </body>
 </html>

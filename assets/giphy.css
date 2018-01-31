@@ -1,9 +1,11 @@
 body{
-	background: grey;
-	background-size: 100%;
+    background-image: url('images/background.jpg') ;
+    background-size: 100%;
     background-repeat: no-repeat;
     color: black;
 }
+
+
 * {
 	box-sizing: border-box;
 }
@@ -27,8 +29,8 @@ img {
 	opacity: 0.8;
 	padding: 20px;
 }
-.jumbotron {
-    background-color: blue;
+/*.jumbotron {
+    background-color: inherit;*/
 }
 .jumbotron .h1, .jumbotron h1 {
     text-align: center;
@@ -44,6 +46,11 @@ div#footer {
 	bottom: 0;
 	left: 0;
 	text-align: center;
+}
+
+ /* adding detail to change the background to opaque so background photo shows*/
+.jumbotron {
+   background: rgba(200, 54, 54, 0.1); 
 }
 
 

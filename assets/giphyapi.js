@@ -1,10 +1,12 @@
 $( document ).ready(function() {
-// An array of actions, new actions will be pushed into this array;
-var actions = ["Tahiti", "Borneo", "Switzerland", "Fez", "Madagascar", "Dubrovnik"];
-// Creating Functions & Methods
-// Function that displays all gif buttons
+
+// Static array of places to use as an examples;
+var actions = ["Himalayas", "Serengeti", "Grand Canyon", "Great Wall", "Amazon River", "Taj Mahal"];
+
+
+// Create function to show the gif buttons from array
 function displayGifButtons(){
-    $("#gifButtonsView").empty(); // erasing anything in this div id so that it doesnt duplicate the results
+    $("#gifButtonsView").empty(); 
     for (var i = 0; i < actions.length; i++){
         var gifButton = $("<button>");
         gifButton.addClass("action");
@@ -14,12 +16,12 @@ function displayGifButtons(){
         $("#gifButtonsView").append(gifButton);
     }
 }
-// Function to add a new action button
+// Function to add a new the new place submission (submit button)
 function addNewButton(){
     $("#addGif").on("click", function(){
-    var action = $("#action-input").val().trim();
+    var action = $("#places-input").val().trim();
     if (action == ""){
-      return false; // added so user cannot add a blank button
+      return false; 
     }
     actions.push(action);
 
@@ -27,55 +29,48 @@ function addNewButton(){
     return false;
     });
 }
-// Function to remove last action button
-    // Doesnt work properly yet removes all of the added buttons
-    // rather than just the last
-function removeLastButton(){
-    $("removeGif").on("click", function(){
-    actions.pop(action);
-    displayGifButtons();
-    return false;
-    });
-}
-// Function that displays all of the gifs
+
+// Shows function of the gifs and pulls from Giphy
 function displayGifs(){
     var action = $(this).attr("data-name");
     var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + action + "&api_key=dc6zaTOxFJmzC&limit=10";
-    console.log(queryURL); // displays the constructed url
+    console.log(queryURL); 
     $.ajax({
         url: queryURL,
         method: 'GET'
     })
     .done(function(response) {
-        console.log(response); // console test to make sure something returns
-        $("#gifsView").empty(); // erasing anything in this div id so that it doesnt keep any from the previous click
-        var results = response.data; //shows results of gifs
+        console.log(response); 
+        $("#gifsView").empty(); 
+        var results = response.data; 
         if (results == ""){
           alert("There isn't a gif for this selected button");
         }
         for (var i=0; i<results.length; i++){
 
-            var gifDiv = $("<div>"); //div for the gifs to go inside
+// Dynamically adds div for gifs to go into, inside html container
+            var gifDiv = $("<div>"); 
             gifDiv.addClass("gifDiv");
-            // pulling rating of gif
+            
             var gifRating = $("<p>").text("Rating: " + results[i].rating);
             gifDiv.append(gifRating);
-            // pulling gif
+            
+            // sets attribute to change image from a still to animated then back again
             var gifImage = $("<img>");
-            gifImage.attr("src", results[i].images.fixed_height_small_still.url); // still image stored into src of image
-            gifImage.attr("data-still",results[i].images.fixed_height_small_still.url); // still image
-            gifImage.attr("data-animate",results[i].images.fixed_height_small.url); // animated image
-            gifImage.attr("data-state", "still"); // set the image state
+            gifImage.attr("src", results[i].images.fixed_height_small_still.url); 
+            gifImage.attr("data-still",results[i].images.fixed_height_small_still.url); 
+            gifImage.attr("data-animate",results[i].images.fixed_height_small.url);
+            gifImage.attr("data-state", "still"); 
             gifImage.addClass("image");
             gifDiv.append(gifImage);
-            // pulling still image of gif
-            // adding div of gifs to gifsView div
+            
+        
             $("#gifsView").prepend(gifDiv);
         }
     });
 }
-// Calling Functions & Methods
-displayGifButtons(); // displays list of actions already created
+// Calling Functions to start
+displayGifButtons(); 
 addNewButton();
 removeLastButton();
 // Document Event Listeners

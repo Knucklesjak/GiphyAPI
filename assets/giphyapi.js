@@ -1,10 +1,11 @@
 $( document ).ready(function() {
+// An array of places to start. these will be static and new places added to array dynamically
+// I changed my project a couple times to get a theme I liked. I wanted to change the var to "places"
+// but doing so ruined my code even when changing elsewhere. 
 
-// Static array of places to use as an examples;
-var actions = ["Himalayas", "Serengeti", "Grand Canyon", "Great Wall", "Amazon River", "Taj Mahal"];
+var actions = ["Tahiti", "Sahara", "Great Wall of China", "Pyramids", "Jungle", "Taj Mahal"];
 
-
-// Create function to show the gif buttons from array
+// Function that displays gif buttons for the static gifs
 function displayGifButtons(){
     $("#gifButtonsView").empty(); 
     for (var i = 0; i < actions.length; i++){
@@ -16,10 +17,10 @@ function displayGifButtons(){
         $("#gifButtonsView").append(gifButton);
     }
 }
-// Function to add a new the new place submission (submit button)
+
 function addNewButton(){
     $("#addGif").on("click", function(){
-    var action = $("#places-input").val().trim();
+    var action = $("#action-input").val().trim();
     if (action == ""){
       return false; 
     }
@@ -30,7 +31,15 @@ function addNewButton(){
     });
 }
 
-// Shows function of the gifs and pulls from Giphy
+
+function removeLastButton(){
+    $("removeGif").on("click", function(){
+    actions.pop(action);
+    displayGifButtons();
+    return false;
+    });
+}
+// displays all of the gifs
 function displayGifs(){
     var action = $(this).attr("data-name");
     var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + action + "&api_key=dc6zaTOxFJmzC&limit=10";
@@ -48,32 +57,30 @@ function displayGifs(){
         }
         for (var i=0; i<results.length; i++){
 
-// Dynamically adds div for gifs to go into, inside html container
             var gifDiv = $("<div>"); 
             gifDiv.addClass("gifDiv");
-            
+            // pulling rating of gif
             var gifRating = $("<p>").text("Rating: " + results[i].rating);
             gifDiv.append(gifRating);
-            
-            // sets attribute to change image from a still to animated then back again
+            // pulling gif
             var gifImage = $("<img>");
             gifImage.attr("src", results[i].images.fixed_height_small_still.url); 
             gifImage.attr("data-still",results[i].images.fixed_height_small_still.url); 
-            gifImage.attr("data-animate",results[i].images.fixed_height_small.url);
+            gifImage.attr("data-animate",results[i].images.fixed_height_small.url); 
             gifImage.attr("data-state", "still"); 
             gifImage.addClass("image");
             gifDiv.append(gifImage);
             
-        
+            
             $("#gifsView").prepend(gifDiv);
         }
     });
 }
-// Calling Functions to start
+// Calling Functions 
 displayGifButtons(); 
 addNewButton();
 removeLastButton();
-// Document Event Listeners
+
 $(document).on("click", ".action", displayGifs);
 $(document).on("click", ".image", function(){
     var state = $(this).attr('data-state');
@@ -86,3 +93,32 @@ $(document).on("click", ".image", function(){
     }
 });
 });
+
+// Alternative AJAX call and function for the start/stop of gifs. Used a regex feature that worked 
+// with a singular gif but I couldn't figure out how to make it work on the loop. Switched to the method we used
+// in class that David showed us. 
+
+ // var url = "";
+ //    $.ajax({
+ //      url: queryURL,
+ //      method: 'GET'
+ //    }).done(function(response) {
+ //      console.log(response.data[0].images.original_still.url);
+ //      url = response.data[0].images.original_still.url; 
+ //      var newImage = $('<img class="gif notPlaying">');
+ //      newImage.attr("src", response.data[0].images.original_still.url);
+ //      $("#gifArea").append(newImage);
+
+ //    });
+
+ //    $(document).on("click", ".gif", function() {
+ //        console.log($(this));
+ //        //debugger;
+ //        if($(this).hasClass("notPlaying")){
+ //            $(this).removeClass("notPlaying");
+ //            $(this).attr('src', url.replace(/\_s.gif/i, ".gif"));
+ //            console.log(url);
+ //        }
+ //        else{
+ //             $(this).addClass('notPlaying');
+ //            $(this).attr('src', url.replace(/\.gif/i, ".gif"))
